@@ -1,27 +1,48 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-{
-  /* <div id="parent">
-  <div id="child">
-    <h1 id="heading-h1">Hello</h1>
-    <h2 id="heading-h2">Hello</h2>
-  </div>
-</div>; */
+// React Element
+const heading = React.createElement(
+  "h1",
+  { id: "header", style: { color: "blue" } },
+  "Namaste React Heading"
+);
+
+// React Component - Class based Component, Functional Component
+
+// Arrow function
+// const Title = () => {
+//   return <h1 id="header">Namaste React</h1>;
+// };
+
+const element = <span>React Element</span>;
+
+// Normal function
+function Title() {
+  return (
+    <div>
+      <h1 id="header">Namaste React Title</h1>
+      {element}
+    </div>
+  );
 }
 
-const parentDiv = React.createElement("div", { id: "parent" }, [
-  React.createElement("div", { id: "child-1" }, [
-    React.createElement("h1", { id: "heading-h1" }, "Hello Child h1"),
-    React.createElement("h2", { id: "heading-h2" }, "Hello Child h2"),
-  ]),
-  React.createElement("div", { id: "child-2" }, [
-    React.createElement("h3", { id: "heading-h3" }, "Hello Child h3"),
-    React.createElement("h4", { id: "heading-h4" }, null),
-  ]),
-]);
+// Component Composition => its to call one component inside another component
+const Header = () => {
+  return (
+    <div className="container">
+      {Title()}
+      <h1 className="heading">Header component</h1>
+    </div>
+  );
+};
 
-console.log(parentDiv);
+// JSX => Transpiled to => React.createElement(object) => renderHTML(render)
+const jsxHeading = <h1>Namaste React from JSX</h1>;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(parentDiv);
+
+// root.render(heading); // Display React element
+// root.render(jsxHeading); // Display React JSX
+
+root.render(<Header />); // Display React Component
