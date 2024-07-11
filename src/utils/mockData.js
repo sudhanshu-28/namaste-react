@@ -712,4 +712,3 @@ export const restaurantsList = [
     widgetId: "collectionV5RestaurantListWidget_SimRestoRelevance_food_seo",
   },
 ];
-
