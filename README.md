@@ -19,3 +19,7 @@
 - HTTPs: Host app on HTTPS
 - Tree Shaking: remove unused code
 - Different dev and prod bundles
+
+# React
+
+- When ever state variable updates, React will re-render the Component (entire).
