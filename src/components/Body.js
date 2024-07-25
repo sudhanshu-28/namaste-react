@@ -2,11 +2,10 @@ import { useEffect, useState } from "react";
 
 import RestaurantCard from "./RestaurantCard";
 
-import { restaurantsList } from "../utils/mockData";
 import { SWIGGY_API_ENDPOINT } from "../utils/constants";
 
 const Body = () => {
-  const [listOfRestaurants, setListOfRestaurant] = useState(restaurantsList);
+  const [listOfRestaurants, setListOfRestaurant] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -34,7 +33,7 @@ const Body = () => {
           <button
             className="filter-btn"
             onClick={() => {
-              const filteredList = restaurantsList.filter(
+              const filteredList = listOfRestaurants.filter(
                 (el) => el?.info?.avgRating > 4.2
               );
               setListOfRestaurant(filteredList);
