@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
 
 import { SWIGGY_API_ENDPOINT } from "../utils/constants";
@@ -21,6 +22,10 @@ const Body = () => {
       setListOfRestaurant(restaurants);
     } catch (err) {}
   };
+
+  if (listOfRestaurants.length === 0) {
+    return <Shimmer />;
+  }
 
   return (
     <div className="app-body">
