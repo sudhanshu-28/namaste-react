@@ -113,3 +113,15 @@ h5 {
 .restaurant-menu-header h1 {
   margin-bottom: 0px;
 }
+
+.user-card {
+  border: 1px solid black;
+  padding: 0.625rem;
+  border-radius: 0.5rem;
+}
+
+.count-control {
+  display: flex;
+  gap: 8px;
+  cursor: pointer;
+}
