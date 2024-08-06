@@ -119,9 +119,3 @@ h5 {
   padding: 0.625rem;
   border-radius: 0.5rem;
 }
-
-.count-control {
-  display: flex;
-  gap: 8px;
-  cursor: pointer;
-}
