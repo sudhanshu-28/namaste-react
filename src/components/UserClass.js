@@ -33,9 +33,9 @@ class UserClass extends React.Component {
     if (this.state.count !== prevState.count) {
     }
 
-    this.timer = setInterval(() => {
-      console.log("SSR setInterval executing");
-    }, 1000);
+    // this.timer = setInterval(() => {
+    //   console.log("SSR setInterval executing");
+    // }, 1000);
   }
 
   componentWillUnmount() {
