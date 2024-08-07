@@ -22,6 +22,8 @@
 
 # React App Optmization
 
+<!-- Below are the same concepts but different name -->
+
 - Chunking
 - Code Splitting
 - Dynamic Bundling (IMP optmization question for interview)
