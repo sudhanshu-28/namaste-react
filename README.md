@@ -19,3 +19,11 @@
 - HTTPs: Host app on HTTPS
 - Tree Shaking: remove unused code
 - Different dev and prod bundles
+
+# React App Optmization
+
+- Chunking
+- Code Splitting
+- Dynamic Bundling (IMP optmization question for interview)
+- Lazy Loading
+- On Demand Loading
