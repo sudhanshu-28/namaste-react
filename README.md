@@ -27,3 +27,4 @@
 - Dynamic Bundling (IMP optmization question for interview)
 - Lazy Loading
 - On Demand Loading
+- Dynamic Import

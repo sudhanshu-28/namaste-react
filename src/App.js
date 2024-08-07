@@ -4,13 +4,16 @@ import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
 import Header from "./components/Header";
 import Body from "./components/Body";
-import About from "./components/About";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Shimmer from "./components/Shimmer";
 
+// When our App grows, we cana divide our app based on functionality into chunks and lazy load
+// To reduce this Bundle size, we do code splitting, do this chunking, do this lazy loading
+// Dynamic Import
 const Grocery = lazy(() => import("./components/Grocery"));
+const About = lazy(() => import("./components/About"));
 
 const AppLayout = () => {
   return (
@@ -32,7 +35,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<Shimmer />}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
