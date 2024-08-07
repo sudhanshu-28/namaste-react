@@ -3,12 +3,15 @@ import { Link } from "react-router-dom";
 
 import Shimmer from "./Shimmer";
 import RestaurantCard from "./RestaurantCard";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 import { SWIGGY_API_ENDPOINT } from "../utils/constants";
 
 const Body = () => {
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurants, setFilteredRestaurant] = useState([]);
+
+  const getOnlineStatus = useOnlineStatus();
 
   const [searchText, setSearchText] = useState("");
 
@@ -33,6 +36,15 @@ const Body = () => {
   // if (listOfRestaurants.length === 0) {
   //   return <Shimmer />;
   // }
+
+  if (!getOnlineStatus) {
+    return (
+      <h1>
+        Could not able to connect to Internet to fetch the data. Please check
+        your Internet connection.
+      </h1>
+    );
+  }
 
   return filteredRestaurants.length === 0 ? (
     <Shimmer />
