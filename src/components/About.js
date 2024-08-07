@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-import UserClass from "./UserClass";
+import User from "./User";
 
 class About extends Component {
   constructor(props) {
@@ -13,7 +13,7 @@ class About extends Component {
     return (
       <div>
         <h1>About Page</h1>
-        <UserClass />
+        <User />
       </div>
     );
   }

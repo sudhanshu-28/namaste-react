@@ -1,6 +1,7 @@
 import React from "react";
 import { GITHUB_USER_DATA } from "../utils/constants";
 
+// Class Component
 class UserClass extends React.Component {
   constructor(props) {
     super(props);

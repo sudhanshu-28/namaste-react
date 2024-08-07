@@ -1,23 +1,12 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { SWIGGY_RESTAURANT_DETAILS_ENDPOINT } from "../utils/constants";
 import Shimmer from "./Shimmer";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const [resInfo, setResInfo] = useState(null);
 
-  const fetchRestuarantDetails = async () => {
-    const data = await fetch(SWIGGY_RESTAURANT_DETAILS_ENDPOINT + resId);
-    const json = await data.json();
-    setResInfo(json?.data || null);
-  };
-
-  useEffect(() => {
-    fetchRestuarantDetails();
-  }, []);
-
+  const resInfo = useRestaurantMenu(resId);
   if (resInfo === null) return <Shimmer />;
 
   const {
