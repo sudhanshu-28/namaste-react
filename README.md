@@ -1,4 +1,4 @@
-# First React App
+# Refresh of React concepts and core fundamentals.
 
 # Parcel
 
