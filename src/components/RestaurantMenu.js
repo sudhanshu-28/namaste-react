@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 
 import Shimmer from "./Shimmer";
 import useRestaurantMenu from "../utils/useRestaurantMenu";
+import { getValidItemPrice } from "../utils/helper";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
@@ -26,11 +27,10 @@ const RestaurantMenu = () => {
       <h3>Recommended Menu</h3>
       <ul>
         {resItems?.map((item) => {
+          console.log(item);
           const itemId = item?.card?.info?.id;
           const itemName = item?.card?.info?.name;
-          const finalPrice = Number(item?.card?.info?.finalPrice / 100);
-          const defaultPrice = Number(item?.card?.info?.finalPrice / 100);
-          const itemPrice = finalPrice ? finalPrice : defaultPrice || "NA";
+          const itemPrice = getValidItemPrice(item?.card?.info);
 
           return (
             <li key={itemId}>
