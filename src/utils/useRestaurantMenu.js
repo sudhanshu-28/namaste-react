@@ -2,18 +2,24 @@ import { useState, useEffect } from "react";
 import { SWIGGY_RESTAURANT_DETAILS_ENDPOINT } from "./constants";
 
 const useRestaurantMenu = (resId) => {
-  const [resInfo, setResInfo] = useState(null);
-  const [isFetching, setFetching] = useState(true);
+  const [responseData, setResponseData] = useState(null);
+  const [isFetchingData, setFetchingData] = useState(true);
+
+  const resInfo = responseData?.cards[2]?.card?.card?.info;
+
+  const resItems =
+    responseData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
+      ?.card?.itemCards;
 
   const fetchData = async () => {
     try {
       const data = await fetch(SWIGGY_RESTAURANT_DETAILS_ENDPOINT + resId);
       const json = await data.json(data);
-      setResInfo(json?.data || null);
+      setResponseData(json?.data || null);
     } catch (error) {
-      setResInfo(null);
+      setResponseData(null);
     } finally {
-      setFetching(false);
+      setFetchingData(false);
     }
   };
 
@@ -21,7 +27,7 @@ const useRestaurantMenu = (resId) => {
     fetchData();
   }, []);
 
-  return { data: resInfo, loading: isFetching };
+  return { resInfo, resItems, isFetchingData };
 };
 
 export default useRestaurantMenu;
