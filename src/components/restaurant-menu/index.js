@@ -27,32 +27,6 @@ const RestaurantMenu = () => {
             <MenuByCategory key={title} title={title} categories={itemCards} />
           );
         })}
-
-      {/* <div className="restaurant-menu-header">
-        <h1>{resInfo?.name}</h1>
-        <span>({resInfo?.cuisines && resInfo?.cuisines.join(", ")})</span>
-      </div>
-
-      <h3>
-        {resInfo?.avgRatingString} ({resInfo?.totalRatingsString}) -{" "}
-        {resInfo?.costForTwoMessage}
-      </h3>
-
-      <h3>Recommended Menu</h3>
-      <ul>
-        {resItems?.map((item) => {
-          console.log(item);
-          const itemId = item?.card?.info?.id;
-          const itemName = item?.card?.info?.name;
-          const itemPrice = getValidItemPrice(item?.card?.info);
-
-          return (
-            <li key={itemId}>
-              {itemName} - ₹{itemPrice}
-            </li>
-          );
-        })}
-      </ul> */}
     </div>
   );
 };
