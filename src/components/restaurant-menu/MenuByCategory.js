@@ -1,21 +1,21 @@
 import React, { useState } from "react";
 import MenuItems from "./MenuItems";
 
-const ItemHeader = ({ title, categories, itemListOpen, setOpenItemList }) => (
+const ItemHeader = ({ title, categories, showItems, setShowItems }) => (
   <div className="flex justify-between items-center">
     <div className="font-bold text-lg py-4">{`${title} (${categories.length})`}</div>
     <div
       className={`text-sm text-blue-600 cursor-pointer items-center`}
-      onClick={() => setOpenItemList(!itemListOpen)}
+      onClick={() => setShowItems(!showItems)}
     >
-      {itemListOpen ? "Close" : "Expand"}
+      {showItems ? "Close" : "Expand"}
     </div>
   </div>
 );
 
-const ItemList = ({ categories, itemListOpen }) => (
+const ItemList = ({ categories, showItems }) => (
   <>
-    {itemListOpen && (
+    {showItems && (
       <div className="flex flex-col space-y-4">
         {categories.map((record) => {
           const id = record?.card?.info?.id;
@@ -30,7 +30,7 @@ const ItemList = ({ categories, itemListOpen }) => (
 
 const MenuByCategory = (props) => {
   const { title, categories = [] } = props;
-  const [itemListOpen, setOpenItemList] = useState(true);
+  const [showItems, setShowItems] = useState(true);
 
   return (
     <div>
@@ -39,10 +39,10 @@ const MenuByCategory = (props) => {
         <ItemHeader
           title={title}
           categories={categories}
-          itemListOpen={itemListOpen}
-          setOpenItemList={setOpenItemList}
+          showItems={showItems}
+          setShowItems={setShowItems}
         />
-        <ItemList categories={categories} itemListOpen={itemListOpen} />
+        <ItemList categories={categories} showItems={showItems} />
       </div>
     </div>
   );

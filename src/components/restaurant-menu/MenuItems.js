@@ -36,11 +36,9 @@ const MenuItems = (props) => {
   const { item } = props;
 
   return (
-    <div>
-      <div className="flex justify-between items-center py-4">
-        <ItemLeftContainer item={item} />
-        <ItemRightContainer item={item} />
-      </div>
+    <div className="flex justify-between items-center pb-4 border-b-2">
+      <ItemLeftContainer item={item} />
+      <ItemRightContainer item={item} />
     </div>
   );
 };
