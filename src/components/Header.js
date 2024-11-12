@@ -9,7 +9,7 @@ const Header = () => {
   const isOnline = useOnlineStatus();
 
   return (
-    <div className="flex items-center justify-between h-16 px-5 shadow-lg lg:bg-slate-200 md:bg-green-200 sm:bg-yellow-200">
+    <div className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between h-16 px-5 shadow-lg lg:bg-slate-200 md:bg-green-200 sm:bg-yellow-200">
       <Link to="/">
         <img src={LOGO_URL} alt="Food Logo" className="w-12" />
       </Link>
