@@ -1,20 +1,34 @@
 import { useParams } from "react-router-dom";
 
-import Shimmer from "./Shimmer";
-import useRestaurantMenu from "../utils/useRestaurantMenu";
-import { getValidItemPrice } from "../utils/helper";
+import Shimmer from "../Shimmer";
+import MenuByCategory from "./MenuByCategory";
+import useRestaurantMenu from "../../utils/useRestaurantMenu";
 
 const RestaurantMenu = () => {
   const { resId } = useParams();
-  const { resInfo, resItems, isFetchingData } = useRestaurantMenu(resId);
+  const { resInfo, resItems = [], isFetchingData } = useRestaurantMenu(resId);
 
   if (isFetchingData) {
     return <Shimmer />;
   }
 
   return (
-    <div className="menu">
-      <div className="restaurant-menu-header">
+    <div className="mx-auto max-w-4xl py-4">
+      {resItems &&
+        resItems.map((item) => {
+          if (!item?.card?.card?.itemCards) {
+            return;
+          }
+
+          const title = item?.card?.card?.title;
+          const itemCards = item?.card?.card?.itemCards;
+
+          return (
+            <MenuByCategory key={title} title={title} categories={itemCards} />
+          );
+        })}
+
+      {/* <div className="restaurant-menu-header">
         <h1>{resInfo?.name}</h1>
         <span>({resInfo?.cuisines && resInfo?.cuisines.join(", ")})</span>
       </div>
@@ -38,7 +52,7 @@ const RestaurantMenu = () => {
             </li>
           );
         })}
-      </ul>
+      </ul> */}
     </div>
   );
 };

@@ -6,7 +6,7 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
-import RestaurantMenu from "./components/RestaurantMenu";
+import RestaurantMenu from "./components/restaurant-menu";
 import Shimmer from "./components/Shimmer";
 
 // When our App grows, we can divide our app based on functionality into chunks and lazy load

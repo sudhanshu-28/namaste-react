@@ -2,18 +2,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Shimmer from "./Shimmer";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withPromotedRestaurant } from "./RestaurantCard";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
 import { SWIGGY_API_ENDPOINT } from "../utils/constants";
 
 const Body = () => {
+  const promotedResList = ["11239", "202836", "334353", "192367"];
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurants, setFilteredRestaurant] = useState([]);
 
+  const [searchText, setSearchText] = useState("");
   const getOnlineStatus = useOnlineStatus();
 
-  const [searchText, setSearchText] = useState("");
+  const PromotedRestaurantCard = withPromotedRestaurant(RestaurantCard);
 
   useEffect(() => {
     fetchData();
@@ -89,11 +91,19 @@ const Body = () => {
       </div>
 
       <div className="grid grid-cols-5 gap-4 gap-y-8 mt-8">
-        {filteredRestaurants.map((el) => (
-          <Link to={"/restaurants/" + el?.info?.id} key={el?.info?.id}>
-            <RestaurantCard restaurant={el} />
-          </Link>
-        ))}
+        {filteredRestaurants.map((el) => {
+          const isPromotedRes = promotedResList.includes(el?.info?.id);
+
+          return (
+            <Link to={"/restaurants/" + el?.info?.id} key={el?.info?.id}>
+              {isPromotedRes ? (
+                <PromotedRestaurantCard restaurant={el} />
+              ) : (
+                <RestaurantCard restaurant={el} />
+              )}
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

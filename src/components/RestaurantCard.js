@@ -28,4 +28,21 @@ const RestaurantCard = (props) => {
   );
 };
 
+// High Order Component - HOC
+export const withPromotedRestaurant = (RestaurantCard) => {
+  return (props) => {
+    return (
+      <div className="relative">
+        <label
+          htmlFor="promoted"
+          className="absolute bg-white text-black text-sm rounded-md p-[3px] right-3 top-2"
+        >
+          Promoted
+        </label>
+        <RestaurantCard {...props} />
+      </div>
+    );
+  };
+};
+
 export default RestaurantCard;

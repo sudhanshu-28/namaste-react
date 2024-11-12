@@ -6,10 +6,8 @@ const useRestaurantMenu = (resId) => {
   const [isFetchingData, setFetchingData] = useState(true);
 
   const resInfo = responseData?.cards[2]?.card?.card?.info;
-
   const resItems =
-    responseData?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card
-      ?.card?.itemCards;
+    responseData?.cards[4]?.groupedCard?.cardGroupMap.REGULAR?.cards || [];
 
   const fetchData = async () => {
     try {

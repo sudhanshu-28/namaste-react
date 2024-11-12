@@ -17,7 +17,7 @@ const Shimmer = () => {
   return (
     <div className="grid grid-cols-5 gap-4 gap-y-8 mt-[5rem] p-4 m-4">
       {Array.from({ length: 10 }, (_, index) => (
-        <ShimmerCard />
+        <ShimmerCard key={index} />
       ))}
     </div>
   );
