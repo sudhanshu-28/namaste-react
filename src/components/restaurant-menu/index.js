@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Shimmer from "../Shimmer";
@@ -8,6 +9,8 @@ import useRestaurantMenu from "../../utils/useRestaurantMenu";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const { resInfo, resItems = [], isFetchingData } = useRestaurantMenu(resId);
+  const [activeItemId, setActiveItemId] = useState(0);
+  const filteredResItems = resItems.filter((res) => res?.card?.card?.itemCards);
 
   if (isFetchingData) {
     return <Shimmer />;
@@ -19,10 +22,8 @@ const RestaurantMenu = () => {
         <RestaurantHeader resInfo={resInfo} />
 
         <div>
-          {resItems &&
-            resItems.map((item) => {
-              if (!item?.card?.card?.itemCards) return;
-
+          {filteredResItems &&
+            filteredResItems.map((item, index) => {
               const title = item?.card?.card?.title;
               const itemCards = item?.card?.card?.itemCards;
 
@@ -31,6 +32,10 @@ const RestaurantMenu = () => {
                   key={title}
                   title={title}
                   categories={itemCards}
+                  isActiveCategory={activeItemId === index}
+                  setCategoryActive={() =>
+                    setActiveItemId(activeItemId === index ? null : index)
+                  }
                 />
               );
             })}

@@ -1,21 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import MenuItems from "./MenuItems";
 
-const ItemHeader = ({ title, categories, showItems, setShowItems }) => (
+const ItemHeader = ({
+  title,
+  categories,
+  isActiveCategory,
+  setCategoryActive,
+}) => (
   <div className="flex justify-between items-center">
     <div className="font-bold text-lg py-4">{`${title} (${categories.length})`}</div>
-    <div
+    <button
       className={`text-sm text-blue-600 cursor-pointer items-center`}
-      onClick={() => setShowItems(!showItems)}
+      onClick={setCategoryActive}
     >
-      {showItems ? "Close" : "Expand"}
-    </div>
+      {isActiveCategory ? "Close" : "Expand"}
+    </button>
   </div>
 );
 
-const ItemList = ({ categories, showItems }) => (
+const ItemList = ({ categories, isActiveCategory }) => (
   <>
-    {showItems && (
+    {isActiveCategory && (
       <div className="flex flex-col space-y-4">
         {categories.map((record) => {
           const id = record?.card?.info?.id;
@@ -28,24 +33,14 @@ const ItemList = ({ categories, showItems }) => (
   </>
 );
 
-const MenuByCategory = (props) => {
-  const { title, categories = [] } = props;
-  const [showItems, setShowItems] = useState(true);
-
-  return (
-    <div>
-      <div className="h-4 bg-gray-200"></div>
-      <div className="mx-4">
-        <ItemHeader
-          title={title}
-          categories={categories}
-          showItems={showItems}
-          setShowItems={setShowItems}
-        />
-        <ItemList categories={categories} showItems={showItems} />
-      </div>
+const MenuByCategory = (props) => (
+  <div>
+    <div className="h-4 bg-gray-200"></div>
+    <div className="mx-4">
+      <ItemHeader {...props} />
+      <ItemList {...props} />
     </div>
-  );
-};
+  </div>
+);
 
 export default MenuByCategory;
