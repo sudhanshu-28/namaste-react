@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 
@@ -21,14 +21,37 @@ const About = lazy(() => import("./components/About"));
 // lazy is the named export provided by react to useActionData
 // it takes callback function with import method which takes component path as argument
 
+import UserContext from "./utils/UserContext";
+
 const AppLayout = () => {
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    const data = {
+      name: "Sudhanshu Rai",
+    };
+    setTimeout(() => {
+      setUserName(data?.name);
+    }, 3000);
+  }, []);
+
+  // Overriding Default value
+  // If you want to access updated value of AnyContext you need to wrap this Consumer over all Child components in which you want to get latest props data
+
   return (
-    <div className="app">
-      <Header />
-      <div className="pt-16">
-        <Outlet />
+    // Default value
+    <UserContext.Provider value={{ loggedInUser: userName }}>
+      {/* Sudhanshu Rai  */}
+      <div className="app">
+        <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
+          {/* Elon Musk  */}
+          <Header />
+        </UserContext.Provider>
+        <div className="pt-16">
+          <Outlet />
+        </div>
       </div>
-    </div>
+    </UserContext.Provider>
   );
 };
 
