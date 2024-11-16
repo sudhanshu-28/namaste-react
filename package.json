@@ -27,6 +27,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-lazy-load-image-component": "^1.6.2",
     "react-router-dom": "^6.26.0"
   },
   "browserslist": [

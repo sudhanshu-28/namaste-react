@@ -1,3 +1,4 @@
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
@@ -8,9 +9,9 @@ const RestaurantCard = (props) => {
 
   return (
     <div className="h-auto shadow-md hover:shadow-xl">
-      <img
-        src={CDN_URL + cloudinaryImageId}
+      <LazyLoadImage
         alt={name}
+        src={CDN_URL + cloudinaryImageId}
         className="rounded-lg w-72 h-56 object-cover"
       />
       <div className="p-3 py-4 flex flex-col space-y-1">
