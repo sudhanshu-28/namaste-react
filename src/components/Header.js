@@ -1,5 +1,8 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+import cartIcon from "../assets/icons/cart.svg";
 
 import UserContext from "../utils/UserContext";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -44,7 +47,18 @@ const Header = () => {
               Grocery
             </Link>
           </li>
-          <li className="hover:underline cursor-pointer">Cart</li>
+          <li className="hover:underline cursor-pointer">
+            <div className="relative flex">
+              <LazyLoadImage
+                alt="cart"
+                src={cartIcon}
+                className="rounded-lg w-6 h-6"
+              />
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+                0
+              </span>
+            </div>
+          </li>
           <li>
             <button
               className="border border-gray-500 rounded-lg bg-white px-4 py-2 hover:bg-gray-500 hover:text-white"
