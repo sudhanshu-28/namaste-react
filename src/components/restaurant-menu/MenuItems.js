@@ -24,12 +24,15 @@ const ItemRightContainer = ({ item }) => {
   const cloudinaryImageId = item?.imageId;
 
   return (
-    <div className="flex-[2] w-32 h-32 rounded-2xl p-2">
+    <div className="flex-[2] w-32 h-32 rounded-2xl p-2 flex items-center justify-center relative">
       <img
         src={CDN_URL + cloudinaryImageId}
         alt={item?.name}
         className="w-full h-full object-cover"
       />
+      <button className="absolute bottom-0 border border-gray-500 bg-white text-green-500 rounded-md font-bold px-3 py-1.5 shadow-lg text-sm">
+        ADD
+      </button>
     </div>
   );
 };
