@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 
+import UserContext from "../utils/UserContext";
 import useOnlineStatus from "../utils/useOnlineStatus";
+
 import LOGO_URL from "../assets/images/restaurant.png";
 
 const Header = () => {
   let [btnNameReact, setBtnNameReact] = useState("Login");
   const isOnline = useOnlineStatus();
+
+  // To use Context react provide us function in the form of Hook useContext
+  const { loggedInUser } = useContext(UserContext);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between h-16 px-5 shadow-lg lg:bg-slate-200 md:bg-green-200 sm:bg-yellow-200">
@@ -49,6 +54,9 @@ const Header = () => {
             >
               {btnNameReact}
             </button>
+          </li>
+          <li className="font-bold text-black cursor-pointer">
+            {loggedInUser}
           </li>
         </ul>
       </div>

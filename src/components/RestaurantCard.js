@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
+
+import UserContext from "../utils/UserContext";
 import { CDN_URL } from "../utils/constants";
 
 const RestaurantCard = (props) => {
   const { restaurant } = props;
+
+  const { loggedInUser } = useContext(UserContext);
 
   const { cloudinaryImageId, name, avgRating, cuisines, locality, sla } =
     restaurant?.info;
@@ -23,6 +28,7 @@ const RestaurantCard = (props) => {
         <div className="text-gray-600 text-sm space-y-1">
           <div className="truncate">{cuisines.join(", ")}</div>
           <div className="truncate">{locality}</div>
+          <div>{loggedInUser}</div>
         </div>
       </div>
     </div>
