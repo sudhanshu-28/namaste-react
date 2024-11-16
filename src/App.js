@@ -35,16 +35,12 @@ const AppLayout = () => {
     }, 3000);
   }, []);
 
-  // Overriding Default value
-  // If you want to access updated value of AnyContext you need to wrap this Consumer over all Child components in which you want to get latest props data
-
   return (
-    // Default value
+    // Overriding Default value
+    // If you want to access updated value of AnyContext you need to wrap this Consumer over all Child components in which you want to get latest props data
     <UserContext.Provider value={{ loggedInUser: userName }}>
-      {/* Sudhanshu Rai  */}
       <div className="app">
         <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
-          {/* Elon Musk  */}
           <Header />
         </UserContext.Provider>
         <div className="pt-16">
