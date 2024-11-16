@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Shimmer from "./Shimmer";
@@ -6,11 +6,14 @@ import RestaurantCard, { withPromotedRestaurant } from "./RestaurantCard";
 import useOnlineStatus from "../utils/useOnlineStatus";
 
 import { SWIGGY_API_ENDPOINT } from "../utils/constants";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const promotedResList = ["11239", "202836", "334353", "192367"];
   const [listOfRestaurants, setListOfRestaurant] = useState([]);
   const [filteredRestaurants, setFilteredRestaurant] = useState([]);
+
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   const [searchText, setSearchText] = useState("");
   const getOnlineStatus = useOnlineStatus();
@@ -53,27 +56,44 @@ const Body = () => {
   ) : (
     <div className="m-4 p-4">
       <div className="flex justify-between">
-        <div className="flex space-x-2">
-          <input
-            type="text"
-            placeholder="Search..."
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-            }}
-            className="border border-black rounded-md shadow-lg p-0.5"
-          />
-          <button
-            className="border rounded-lg border-black bg-gray-500 text-white p-1 px-4"
-            onClick={() => {
-              const filteredList = listOfRestaurants.filter((res) =>
-                res?.info?.name.toLowerCase().includes(searchText.toLowerCase())
-              );
-              setFilteredRestaurant(filteredList);
-            }}
-          >
-            Search
-          </button>
+        <div className="flex space-x-5">
+          <div className="flex space-x-2">
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchText}
+              onChange={(e) => {
+                setSearchText(e.target.value);
+              }}
+              className="border border-black rounded-md shadow-lg p-0.5"
+            />
+            <button
+              className="border rounded-lg border-black bg-gray-500 text-white p-1 px-4"
+              onClick={() => {
+                const filteredList = listOfRestaurants.filter((res) =>
+                  res?.info?.name
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
+                );
+                setFilteredRestaurant(filteredList);
+              }}
+            >
+              Search
+            </button>
+          </div>
+
+          <div className="flex space-x-2 items-center">
+            <div>Username: </div>
+            <input
+              type="text"
+              placeholder="Enter Name"
+              className="border border-black rounded-md shadow-lg p-0.5"
+              value={loggedInUser}
+              onChange={(e) => {
+                setUserName(e.target.value);
+              }}
+            />
+          </div>
         </div>
         <div>
           <button

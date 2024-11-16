@@ -30,19 +30,15 @@ const AppLayout = () => {
     const data = {
       name: "Sudhanshu Rai",
     };
-    setTimeout(() => {
-      setUserName(data?.name);
-    }, 3000);
+    setUserName(data?.name);
   }, []);
 
   return (
     // Overriding Default value
     // If you want to access updated value of AnyContext you need to wrap this Consumer over all Child components in which you want to get latest props data
-    <UserContext.Provider value={{ loggedInUser: userName }}>
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
       <div className="app">
-        <UserContext.Provider value={{ loggedInUser: "Elon Musk" }}>
-          <Header />
-        </UserContext.Provider>
+        <Header />
         <div className="pt-16">
           <Outlet />
         </div>
