@@ -1,6 +1,7 @@
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -22,6 +23,7 @@ const About = lazy(() => import("./components/About"));
 // it takes callback function with import method which takes component path as argument
 
 import UserContext from "./utils/UserContext";
+import appStore from "./store/appStore";
 
 const AppLayout = () => {
   const [userName, setUserName] = useState();
@@ -36,14 +38,16 @@ const AppLayout = () => {
   return (
     // Overriding Default value
     // If you want to access updated value of AnyContext you need to wrap this Consumer over all Child components in which you want to get latest props data
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div className="app">
-        <Header />
-        <div className="pt-16">
-          <Outlet />
+    <Provider store={appStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app">
+          <Header />
+          <div className="pt-16">
+            <Outlet />
+          </div>
         </div>
-      </div>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
