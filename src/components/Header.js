@@ -18,7 +18,14 @@ const Header = () => {
   const { loggedInUser } = useContext(UserContext);
 
   // Subscribed to Redux store using Selector
-  const { items: cartItems = [] } = useSelector((state) => state?.cart);
+  const { items = [] } = useSelector((state) => state?.cart);
+
+  const totalItemsCount = items.reduce((total, item) => {
+    if (item?.quantity) {
+      total = total + item.quantity;
+      return total;
+    }
+  }, 0);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-10 flex items-center justify-between h-16 px-5 shadow-lg lg:bg-slate-200 md:bg-green-200 sm:bg-yellow-200">
@@ -59,7 +66,7 @@ const Header = () => {
                 className="rounded-lg w-6 h-6"
               />
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
-                {cartItems.length || 0}
+                {totalItemsCount || 0}
               </span>
             </div>
           </li>

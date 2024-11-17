@@ -8,17 +8,48 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-      const { itemId, resId } = action.payload;
-      // Mutating the state here
-      state.items.push(itemId);
-      state.resId = resId;
+      const { item, resId } = action.payload;
+
+      if (state.resId && state.items.length > 0) {
+        const findItemIndex = state.items.findIndex(
+          (el) => el?.itemId === item?.id
+        );
+
+        if (findItemIndex < 0) {
+          state.items.push({
+            itemId: item?.id,
+            itemInfo: item,
+            quantity: 1,
+          });
+        } else {
+          state.items[findItemIndex].quantity++;
+        }
+      } else {
+        // Mutating the state here
+        state.items.push({
+          itemId: item?.id,
+          itemInfo: item,
+          quantity: 1,
+        });
+        state.resId = resId;
+      }
     },
     removeItem: (state, action) => {
-      const itemToRemove = action.payload;
-      state.items = state.items.filter((el) => el !== itemToRemove);
-      if (state.items.length === 0) {
-        state.resId = null;
-      }
+      const { item } = action.payload;
+
+      if (!item) return;
+
+      state.items = state.items.reduce((updatedItems, el) => {
+        if (el?.itemId === item?.id) {
+          const updatedQuantity = el?.quantity - 1;
+          if (updatedQuantity > 0) {
+            updatedItems.push({ ...el, quantity: updatedQuantity });
+          }
+        } else {
+          updatedItems.push(el);
+        }
+        return updatedItems;
+      }, []);
     },
     clearCart: (state) => {
       state.items = [];

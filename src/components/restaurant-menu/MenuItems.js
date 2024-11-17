@@ -1,4 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addItem, removeItem } from "../../store/cartSlice";
 import { CDN_URL } from "../../utils/constants";
 
 const ItemLeftContainer = ({ item }) => (
@@ -21,7 +25,25 @@ const ItemLeftContainer = ({ item }) => (
 );
 
 const ItemRightContainer = ({ item }) => {
+  const { resId } = useParams();
   const cloudinaryImageId = item?.imageId;
+
+  const dispatch = useDispatch();
+  const { items = [] } = useSelector((state) => state?.cart);
+
+  const isItemInCart = items.find((el) => el?.itemId === item?.id);
+
+  const handleAddItem = () => {
+    dispatch(addItem({ item, resId })); // Dispatch an Action
+  };
+
+  const handleRemoveItem = () => {
+    dispatch(removeItem({ item }));
+  };
+
+  const controlBtnStyle = "flex items-center justify-center space-x-5";
+  const addBtnStyle =
+    "absolute bottom-0 border border-gray-500 bg-white text-green-500 rounded-md font-bold px-3 py-1.5 shadow-lg text-sm ";
 
   return (
     <div className="flex-[2] w-32 h-32 rounded-2xl p-2 flex items-center justify-center relative">
@@ -30,9 +52,17 @@ const ItemRightContainer = ({ item }) => {
         alt={item?.name}
         className="w-full h-full object-cover"
       />
-      <button className="absolute bottom-0 border border-gray-500 bg-white text-green-500 rounded-md font-bold px-3 py-1.5 shadow-lg text-sm">
-        ADD
-      </button>
+      {isItemInCart ? (
+        <div className={addBtnStyle + controlBtnStyle}>
+          <button onClick={handleRemoveItem}>-</button>
+          <button disabled>{isItemInCart?.quantity || 0}</button>
+          <button onClick={handleAddItem}>+</button>
+        </div>
+      ) : (
+        <div className={addBtnStyle}>
+          <button onClick={handleAddItem}>ADD</button>
+        </div>
+      )}
     </div>
   );
 };
