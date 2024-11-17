@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { addItem, removeItem } from "../../store/cartSlice";
+import { addItem, clearCart, removeItem } from "../../store/cartSlice";
 import { CDN_URL } from "../../utils/constants";
 
 const ItemLeftContainer = ({ item }) => (
@@ -29,21 +29,34 @@ const ItemRightContainer = ({ item }) => {
   const cloudinaryImageId = item?.imageId;
 
   const dispatch = useDispatch();
-  const { items = [] } = useSelector((state) => state?.cart);
+  const { items = [], resId: activeResId } = useSelector(
+    (state) => state?.cart
+  );
 
   const isItemInCart = items.find((el) => el?.itemId === item?.id);
 
+  const controlBtnStyle = "flex items-center justify-center space-x-5";
+  const addBtnStyle =
+    "absolute bottom-0 border border-gray-500 bg-white text-green-500 rounded-md font-bold px-3 py-1.5 shadow-lg text-sm ";
+
+  const RESTAURANT_CHANGE_ALERT_TEXT =
+    "Your cart contains items from other restaurant. Would you like to reset your cart for adding items from this restaurant?";
+
   const handleAddItem = () => {
-    dispatch(addItem({ item, resId })); // Dispatch an Action
+    if (items.length !== 0 && activeResId !== resId) {
+      if (confirm(RESTAURANT_CHANGE_ALERT_TEXT)) {
+        // Dispatch an Action
+        dispatch(clearCart());
+        dispatch(addItem({ item, resId }));
+      }
+    } else {
+      dispatch(addItem({ item, resId })); // Dispatch an Action
+    }
   };
 
   const handleRemoveItem = () => {
     dispatch(removeItem({ item }));
   };
-
-  const controlBtnStyle = "flex items-center justify-center space-x-5";
-  const addBtnStyle =
-    "absolute bottom-0 border border-gray-500 bg-white text-green-500 rounded-md font-bold px-3 py-1.5 shadow-lg text-sm ";
 
   return (
     <div className="flex-[2] w-32 h-32 rounded-2xl p-2 flex items-center justify-center relative">
