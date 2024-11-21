@@ -12,25 +12,31 @@ const cartSlice = createSlice({
 
       if (state.resId && state.items.length > 0) {
         const findItemIndex = state.items.findIndex(
-          (el) => el?.itemId === item?.id
+          (el) => el?.card?.info?.id === item?.card?.info?.id
         );
 
         if (findItemIndex < 0) {
-          state.items.push({
-            itemId: item?.id,
-            itemInfo: item,
-            quantity: 1,
-          });
+          const itemToInsert = {
+            ...item,
+            card: {
+              ...item?.card,
+              quantity: 1,
+            },
+          };
+          state.items.push(itemToInsert);
         } else {
-          state.items[findItemIndex].quantity++;
+          state.items[findItemIndex].card.quantity++;
         }
       } else {
         // Mutating the state here
-        state.items.push({
-          itemId: item?.id,
-          itemInfo: item,
-          quantity: 1,
-        });
+        const itemToInsert = {
+          ...item,
+          card: {
+            ...item?.card,
+            quantity: 1,
+          },
+        };
+        state.items.push(itemToInsert);
         state.resId = resId;
       }
     },
@@ -40,10 +46,16 @@ const cartSlice = createSlice({
       if (!item) return;
 
       state.items = state.items.reduce((updatedItems, el) => {
-        if (el?.itemId === item?.id) {
-          const updatedQuantity = el?.quantity - 1;
+        if (el?.card?.info?.id === item?.card?.info?.id) {
+          const updatedQuantity = el?.card?.quantity - 1;
           if (updatedQuantity > 0) {
-            updatedItems.push({ ...el, quantity: updatedQuantity });
+            updatedItems.push({
+              ...el,
+              card: {
+                ...item?.card,
+                quantity: updatedQuantity,
+              },
+            });
           }
         } else {
           updatedItems.push(el);

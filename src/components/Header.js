@@ -21,8 +21,8 @@ const Header = () => {
   const { items = [] } = useSelector((state) => state?.cart);
 
   const totalItemsCount = items.reduce((total, item) => {
-    if (item?.quantity) {
-      total = total + item.quantity;
+    if (item?.card?.quantity) {
+      total = total + item.card.quantity;
       return total;
     }
   }, 0);
@@ -58,8 +58,8 @@ const Header = () => {
               Grocery
             </Link>
           </li>
-          <li className="hover:underline cursor-pointer">
-            <div className="relative flex">
+          <li className="hover:underline">
+            <Link to={"./cart"} className="relative flex">
               <LazyLoadImage
                 alt="cart"
                 src={cartIcon}
@@ -68,7 +68,7 @@ const Header = () => {
               <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
                 {totalItemsCount || 0}
               </span>
-            </div>
+            </Link>
           </li>
           <li>
             <button

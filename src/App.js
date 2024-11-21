@@ -9,6 +9,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/restaurant-menu";
 import Shimmer from "./components/Shimmer";
+import Cart from "./components/cart";
 
 // When our App grows, we can divide our app based on functionality into chunks and lazy load
 // To reduce this Bundle size, we do code splitting, do this chunking, do this lazy loading
@@ -86,6 +87,10 @@ const appRouter = createBrowserRouter([
             <Grocery />
           </Suspense>
         ),
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
     errorElement: <Error />,
