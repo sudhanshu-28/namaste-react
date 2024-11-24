@@ -30,3 +30,9 @@
 - Lazy Loading
 - On Demand Loading
 - Dynamic Import
+
+# Types of testing (developer)
+
+- Unit Testing
+- Integration Test
+- End to End Testing - e2e testing
