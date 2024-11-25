@@ -1,21 +1,73 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
+
+const defaultObj = {
+  name: "",
+  email: "",
+  message: "",
+};
 
 const Contact = () => {
-  // clear interval on component unmount
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     console.log("SSR useEffect setInrerval executing");
-  //   }, 1000);
+  const [messageObj, setMessageObj] = useState(defaultObj);
 
-  //   return () => {
-  //     clearInterval(timer);
-  //   };
-  // }, []);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMessageObj((prevMessageObj) => ({ ...prevMessageObj, [name]: value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log("Form submitted with:", messageObj);
+  };
 
   return (
-    <div>
-      <h1>Contact Us</h1>
-      <h2>This is Contact Page</h2>
+    <div className="m-4 p-4">
+      <h1 className="text-2xl">Contact Us</h1>
+
+      <form onSubmit={handleSubmit} className="mt-4 flex-col space-y-4">
+        <div className="space-y-1">
+          <h4>Name</h4>
+          <input
+            type="text"
+            name="name"
+            placeholder="Enter name"
+            className="border border-gray-500 rounded-md p-1"
+            value={messageObj?.name}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="space-y-1">
+          <h4>Email</h4>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter email"
+            className="border border-gray-500 rounded-md p-1"
+            value={messageObj?.email}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="space-y-1">
+          <h4>Message</h4>
+          <textarea
+            name="message"
+            cols="30"
+            rows="5"
+            placeholder="Enter message"
+            className="border border-gray-500 rounded-md p-2"
+            value={messageObj?.message}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="border-gray-500 hover:bg-blue-600 bg-blue-500 text-white p-2 px-4 rounded-md"
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 };
