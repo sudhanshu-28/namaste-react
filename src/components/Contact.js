@@ -25,7 +25,7 @@ const Contact = () => {
 
       <form onSubmit={handleSubmit} className="mt-4 flex-col space-y-4">
         <div className="space-y-1">
-          <h4>Name</h4>
+          <div>Name</div>
           <input
             type="text"
             name="name"
@@ -37,7 +37,7 @@ const Contact = () => {
         </div>
 
         <div className="space-y-1">
-          <h4>Email</h4>
+          <div>Email</div>
           <input
             type="email"
             name="email"
@@ -49,7 +49,7 @@ const Contact = () => {
         </div>
 
         <div className="space-y-1">
-          <h4>Message</h4>
+          <div>Message</div>
           <textarea
             name="message"
             cols="30"
